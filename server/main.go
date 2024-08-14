@@ -2,8 +2,9 @@ package main
 
 import (
 	"flag"
-	"wms/conf"
+	"wms/config"
 	"wms/log"
+	"wms/orm"
 	"wms/router"
 )
 
@@ -11,7 +12,7 @@ func main() {
 	var configFile string
 	var err error
 
-	flag.StringVar(&configFile, "conf", "./conf/conf_dev.json", "config file")
+	flag.StringVar(&configFile, "config", "./config/cfg_dev.json", "config file")
 	flag.Parse()
 
 	if configFile == "" {
@@ -19,9 +20,15 @@ func main() {
 		return
 	}
 
-	err = conf.Init(configFile)
+	err = config.Init(configFile)
 	if err != nil {
-		log.Errorf("[init][conf] %v", err.Error())
+		log.Errorf("[init][config] %v", err.Error())
+		return
+	}
+
+	err = orm.InitMysql()
+	if err != nil {
+		log.Errorf("[init][mysql] %v", err.Error())
 		return
 	}
 

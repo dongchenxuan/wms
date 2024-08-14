@@ -3,4 +3,4 @@ package web
 import "embed"
 
 //go:embed dist/*
-var Emfs embed.FS
+var Dist embed.FS

@@ -3,7 +3,7 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"wms/conf"
+	"wms/config"
 	"wms/log"
 	"wms/pages"
 )
@@ -15,7 +15,7 @@ var (
 func Init() {
 	var engine *gin.Engine
 
-	if conf.Instance.Env == conf.Delos {
+	if config.Instance.Env == config.Delos {
 		gin.SetMode(gin.ReleaseMode)
 		engine = gin.New()
 	} else {
@@ -38,7 +38,7 @@ func Init() {
 	initHandler()
 	registerHandlers(engine)
 
-	err := engine.Run(conf.Instance.Http.Listen)
+	err := engine.Run(config.Instance.Http.Listen)
 	if err != nil {
 		log.Errorf("[gin] init error:%v", err)
 		panic(err)

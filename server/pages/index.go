@@ -8,7 +8,7 @@ import (
 
 // Index todo: 主页
 func Index(c *gin.Context) {
-	data, err := web.Emfs.ReadFile("dist/index.html")
+	data, err := web.Dist.ReadFile("dist/index.html")
 	if err != nil {
 		c.String(http.StatusNotFound, "File not found: %v", err)
 		return

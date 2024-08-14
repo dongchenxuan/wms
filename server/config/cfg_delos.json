@@ -1,5 +1,5 @@
 {
-  "env": "Prod",
+  "env": "Delos",
   "http": {
     "listen": "0.0.0.0:813"
   },
@@ -8,15 +8,17 @@
     "settings": "charset=utf8mb4,utf8&parseTime=True&loc=Local",
     "username": "wms",
     "password": "",
-    "default_host": "127.0.0.1",
-    "default_port": 3306,
-    "showSQL": false
+    "host": "127.0.0.1",
+    "port": 3306,
+    "showSQL": false,
+    "idle": 5,
+    "max": 100
   },
   "redis": {
     "address": "127.0.0.1:6379",
     "username": "",
     "password": "",
-    "database":1
+    "database":3
   },
   "email": {
     "smtp": "smtp.exmail.qq.com",

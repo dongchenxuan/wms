@@ -1,4 +1,4 @@
-package conf
+package config
 
 import (
 	"encoding/json"
@@ -14,13 +14,15 @@ type HttpConfig struct {
 
 // MysqlConfig todo: Mysql
 type MysqlConfig struct {
-	Database    string `json:"database"`
-	Settings    string `json:"settings"`
-	UserName    string `json:"username"`
-	Password    string `json:"password"`
-	ShowSQL     bool   `json:"showSQL"`
-	DefaultHost string `json:"default_host"`
-	DefaultPort int64  `json:"default_port"`
+	Database string `json:"database"`
+	Settings string `json:"settings"`
+	UserName string `json:"username"`
+	Password string `json:"password"`
+	Host     string `json:"host"`
+	Port     int64  `json:"port"`
+	Idle     int    `json:"idle"`
+	Max      int    `json:"max"`
+	ShowSQL  bool   `json:"showSQL"`
 }
 
 // RedisConfig todo: Redis
@@ -43,7 +45,7 @@ type EmailConfig struct {
 type Config struct {
 	Env       string      `json:"env"`
 	Http      HttpConfig  `json:"http"`
-	DBConfig  MysqlConfig `json:"mysql"`
+	Mysql     MysqlConfig `json:"mysql"`
 	Redis     RedisConfig `json:"redis"`
 	Email     EmailConfig `json:"email"`
 	PublicKey string      `json:"public_key"`
