@@ -1,0 +1,28 @@
+{
+  "env": "Delos",
+  "http": {
+    "listen": "0.0.0.0:813"
+  },
+  "mysql": {
+    "database":"wms",
+    "settings": "charset=utf8mb4,utf8&parseTime=True&loc=Local",
+    "username": "wms",
+    "password": "",
+    "default_host": "127.0.0.1",
+    "default_port": 3306,
+    "showSQL": false
+  },
+  "redis": {
+    "address": "127.0.0.1:6379",
+    "username": "",
+    "password": "",
+    "database":3
+  },
+  "email": {
+    "smtp": "smtp.exmail.qq.com",
+    "port": 465,
+    "num": "",
+    "password": ""
+  },
+  "app_public_key": ""
+}
