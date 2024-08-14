@@ -3,8 +3,8 @@ package main
 import (
 	"flag"
 	"wms/config"
+	"wms/db"
 	"wms/log"
-	"wms/orm"
 	"wms/router"
 )
 
@@ -26,10 +26,15 @@ func main() {
 		return
 	}
 
-	err = orm.InitMysql()
+	err = db.InitMysql()
 	if err != nil {
 		log.Errorf("[init][mysql] %v", err.Error())
 		return
+	}
+
+	err = db.InitRedis()
+	if err != nil {
+		log.Errorf("[init][redis] %v", err.Error())
 	}
 
 	router.Init()
