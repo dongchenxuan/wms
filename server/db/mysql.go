@@ -6,6 +6,7 @@ import (
 	"github.com/xormplus/xorm"
 	"wms/config"
 	"wms/log"
+	"wms/models"
 )
 
 var Orm *xorm.Engine
@@ -30,14 +31,29 @@ func InitMysql() error {
 	}
 
 	orm.ShowSQL(config.Instance.Mysql.ShowSQL)
-	orm.ShowSQL(config.Instance.Mysql.ShowSQL)
 	orm.SetMaxIdleConns(config.Instance.Mysql.Idle)
 	orm.SetMaxOpenConns(config.Instance.Mysql.Max)
 
 	if orm == nil {
 		log.Error("[mysql] 连接失败")
 	}
+
+	syncTables(orm)
+
 	Orm = orm
 	log.Infof("================[结束初始化MySQL数据库连接]================")
 	return nil
+}
+
+// todo: 同步表结构
+func syncTables(orm *xorm.Engine) {
+	err := orm.Sync2(&models.WmsArchivesDepotDao{})
+	if err != nil {
+		panic(err)
+	}
+
+	err = orm.Sync2(&models.WmsArchivesDepotDao{})
+	if err != nil {
+		panic(err)
+	}
 }

@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
+	"io/fs"
 	"net/http"
 	"wms/config"
 	"wms/log"
@@ -27,7 +28,11 @@ func Init() {
 	engine.Use(NewParamsMiddleware())
 
 	// Serve static files from the web directory
-	engine.StaticFS("/static", http.Dir("../web/dist/static"))
+	fe, err := fs.Sub(pages.Dist, "dist/static")
+	if err != nil {
+		panic(err)
+	}
+	engine.StaticFS("/static", http.FS(fe))
 
 	// Web page
 	registerPages(engine)
@@ -38,7 +43,7 @@ func Init() {
 	initHandler()
 	registerHandlers(engine)
 
-	err := engine.Run(config.Instance.Http.Listen)
+	err = engine.Run(config.Instance.Http.Listen)
 	if err != nil {
 		log.Errorf("[gin] init error:%v", err)
 		panic(err)
@@ -48,6 +53,7 @@ func Init() {
 // todo: loading web pages
 func registerPages(engine *gin.Engine) {
 	engine.GET("/", pages.Index)
+	engine.GET("/favicon.ico", pages.Icon)
 }
 
 // todo: init handler
